@@ -1,0 +1,42 @@
+---
+title: Prior-knowledge summariser
+phase: research
+domain: shared
+tool: clara
+task: summarise prior knowledge from past programmes on a specific topic
+expectedOutput: >-
+  A structured summary of past programme learnings with patterns,
+  contradictions, adjacent work, and source citations.
+inputsFrom: []
+confluenceContext:
+  inputs:
+    - what: Past programme writeups touching the topic
+      description: >-
+        Search Confluence broadly for pages mentioning the topic across all
+        programmes. Common locations: programme spaces, research writeups,
+        retrospectives, lessons-learned pages, post-iteration reviews. Look for
+        pages with 'research', 'retrospective', 'lessons-learned' in titles.
+  outputPathTemplate: 'Knowledge Base/{{track}}/Prior-knowledge/{{topic}}'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `prior-knowledge-summariser` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Topic** — what topic or domain you're researching. Be specific: "scheduling operator interviews around shift patterns", not "user research".
+- **Inputs** — CLARA will search the programme's Confluence space for past programme writeups touching the topic. You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Prior-knowledge/{{topic}}` inside your programme's Confluence space.
+
+## Tips
+
+- Be specific with the topic. Broader queries return mush.
+- If the response is shallow, follow up with: "Go deeper on the recurring patterns — what specifically were the failure modes?"
+- Treat citations as the deliverable. If a finding has no citation, treat it as a hypothesis, not a fact.
+- In MCP mode, confirm the source list before generating. The LLM picking the wrong pages is the failure mode most worth catching upfront.

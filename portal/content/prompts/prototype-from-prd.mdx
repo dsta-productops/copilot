@@ -1,0 +1,62 @@
+---
+title: "Prototype-from-PRD scaffolder"
+phase: "design"
+domain: "digital"
+tool: "claude-code"
+task: "Generate a working prototype from a PRD"
+expectedOutput: "Scaffolded, PRIZM-conformant prototype code that implements the user stories in the PRD."
+inputsFrom:
+  - prd-generator
+outputDestination: "A working scaffold in your repo. The prototype is the reference code — push to a branch DevSecOps can read so their technical assessment runs in parallel with the next Design iteration."
+inputs:
+  - token: "PRD"
+    description: "The PRD you're building from, in any of these forms:"
+    examples:
+      - "Output of [PRD generator](/prompts/prd-generator), reviewed and refined by hand"
+      - "A PRD authored by hand, pasted as markdown"
+      - "A PRD exported from another system"
+  - token: "DESIGN_INTENT"
+    description: "Any visual or interaction direction you want to anchor on. Plain text."
+    optional: true
+    examples:
+      - "calm and information-dense"
+      - "fast and keyboard-first"
+      - "matches the prior C2 console look"
+promptBody: |
+  I want to scaffold a prototype that implements the PRD below.
+
+  Stack:
+  - Next.js + TypeScript + Tailwind v4
+  - PRIZM 4.0 Enterprise (read PRIZM.md and llms.txt at
+    https://github.com/prizm-design/prizm before generating)
+  - Semantic tokens only — never raw colour utilities
+
+  For each user story / job-to-be-done in the PRD:
+  - Scaffold the minimal screens / flows needed
+  - Compose PRIZM primitives where they exist
+  - Don't fabricate components; if you need a primitive
+    that doesn't exist in PRIZM, tell me
+
+  Before writing any code:
+  - Read the PRD and identify the 3-5 critical user flows
+  - Confirm with me which to scaffold first
+  - Don't try to scaffold everything in one pass
+
+  INPUTS:
+
+  PRD:
+  {{PRD}}
+
+  Design intent (if any):
+  {{DESIGN_INTENT}}
+visibility: "public"
+---
+
+Use this prompt with [Claude Code](/tools/claude-code) to scaffold a working prototype from a finalised PRD.
+
+## Tips
+
+- The "before writing any code, confirm" step is what prevents Claude Code from generating 500 lines of irrelevant scaffolding. Don't skip it.
+- The output is reference code, not production code. Treat it as the starting point for the team's iteration, and let DevSecOps act on it in parallel.
+- If Claude Code starts inventing PRIZM components that don't exist, stop and tell it to check `lib/components-registry.ts` in the PRIZM repo before generating.
+- The scaffolded prototype is the input for the [test-plan generator](/prompts/test-plan-generator) — close the loop with usability sessions and DASH 2.0 surveys.

@@ -1,0 +1,100 @@
+---
+title: "Research"
+lede: "Understand users, operators, and needs. Define the right problem to solve before any solutioning happens."
+artefactChecklist:
+  - label: "Problem framing is current"
+    description: "The problem statement reflects what the team now knows — and it's a problem, not a solution in disguise."
+  - label: "The research surfaced something new"
+    description: "Research that only confirms prior beliefs has produced no new information. Even a refinement should look different from the previous version."
+  - label: "Success criteria are measurable and capability-focused"
+    description: "What the capability or product has to be able to do — and to what threshold — for the next stretch of work to count as a win."
+  - label: "PRD or operational scenario is current"
+    description: "Digital teams: PRD. Engineering teams: operational scenario, grounded in operator reality."
+pitfalls:
+  - label: "Confirming, not discovering."
+    description: "Research that only validates pre-existing beliefs has produced no new information. If your synthesis sounds like the brief, go back to the field."
+  - label: "Skipping the synthesis pass."
+    description: "Jumping from interviews to solutioning loses the layer where the actual problem gets defined — and where the four sections (themes / friction / problem / success criteria) get reconciled."
+  - label: "Synthesis-as-summary."
+    description: "Insights are not bullet points of what people said. They are the patterns underneath what people said."
+  - label: "Treating the AI output as final."
+    description: "The prompts produce first-draft artefacts. Manual editing and refinement after generation is the norm, not the fallback."
+stages:
+  - name: "Discovery"
+    intro: "Build understanding of the current state. Surface what's already known, capture a baseline of the existing or legacy system, and design the qualitative field engagement."
+    artefacts:
+      - name: "Surface prior knowledge"
+        description: "Pull what the team and the wider organisation already know about this problem space."
+        domain: "shared"
+        promptSlugs:
+          - prior-knowledge-summariser
+      - name: "Baseline the current state"
+        description: "Run a DASH 2.0 baseline survey with users of the existing, legacy, or competitor system. The numbers captured here become the comparator the new system's Test results will be measured against — without them, future success criteria stay aspirational rather than verifiable."
+        domain: "shared"
+        toolSlugs:
+          - dash
+      - name: "Generate the interview guide"
+        description: "Translate the outcome question into a field-ready interview guide — questions, listening signals, and probes."
+        domain: "shared"
+        promptSlugs:
+          - interview-guide-generator
+  - name: "Synthesis"
+    intro: "Turn transcripts and field observations into a single Research-synthesis page covering themes, friction, problem statement, and success criteria — produced in one pass so all four are internally consistent."
+    artefacts:
+      - name: "Synthesise the research"
+        description: "One pass over the transcripts and observation notes produces themes, friction points, the problem statement, and success criteria as a single page."
+        domain: "shared"
+        promptSlugs:
+          - research-synthesiser
+  - name: "Artefact production"
+    intro: "Compose the synthesis into the durable artefacts that pass into Design. Order within this stage doesn't matter — produce whichever apply to your team. Digital teams and engineering teams work in parallel under their respective tabs."
+    parallel: true
+    artefacts:
+      - name: "Draft a persona"
+        description: "Composite user archetype grounded in the research synthesis."
+        domain: "digital"
+        promptSlugs:
+          - persona-generator
+      - name: "Map the user journey"
+        description: "Current-state experience, friction points, moments of truth."
+        domain: "digital"
+        promptSlugs:
+          - journey-map-drafter
+      - name: "Map the service blueprint"
+        description: "Front-stage and back-stage of the user experience."
+        domain: "digital"
+        promptSlugs:
+          - service-blueprint-drafter
+      - name: "Draft the PRD"
+        description: "Product Requirements Document — the artefact that passes into Design."
+        domain: "digital"
+        promptSlugs:
+          - prd-generator
+      - name: "Draft the operational scenario"
+        description: "Narrative of how a capability would be used in context."
+        domain: "engineering"
+        promptSlugs:
+          - operational-scenario-generator
+      - name: "Specify the capability"
+        description: "Measurable requirements derived from operational need."
+        domain: "engineering"
+        promptSlugs:
+          - capability-spec-generator
+      - name: "Map the mission thread"
+        description: "End-to-end view of the operational task the capability supports."
+        domain: "engineering"
+        promptSlugs:
+          - mission-thread-mapper
+---
+
+## What this phase is for
+
+Research establishes *who* the work is for, *what* they're trying to achieve, and *what would count as a win*. It's the **outer loop** of the flywheel — done thoroughly at the start of a programme or a track, and re-engaged when test findings suggest the framing itself has shifted. Once a track moves into Design, the inner loop takes over: Design ↔ Test iterates at a higher cadence, with Research re-engaged only when something foundational shifts.
+
+For digital teams this typically spans pre-AOR through planning intervals; for engineering teams, concept development through capability requirements refinement.
+
+## How to run a Research prompt
+
+Every Research prompt on this portal is a one-line invocation you paste into a CLARA-enabled LLM. CLARA confirms which artefact you want, asks for the few inputs she can't infer, reads the relevant Confluence pages, drafts the artefact, and files it back into the programme's Knowledge Base under the agreed path.
+
+**Early access on ANZ C now.** For planned availability in other environments see [/tools/clara](/tools/clara).

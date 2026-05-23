@@ -1,0 +1,34 @@
+---
+name: "Dynatrace"
+phase: "test"
+domain: "digital"
+type: "cots"
+availability:
+  mcc: available
+  anzC: planned
+visibility: "public"
+prompts: []
+---
+
+## What it does
+
+Product instrumentation platform augmented with LLM-powered insight extraction. Captures usage data from live digital products, then lets any team member derive actionable insights through natural-language queries — without specialist data analysis skills.
+
+The LLM layer is what makes Dynatrace usable by product owners and designers directly. Asking "where are users dropping off in the onboarding flow?" in natural language is faster than constructing a query, and surfaces what matters even when the team didn't know which question to ask.
+
+## When to use it
+
+- Test phase for digital teams — live-product measurement
+- Throughout a digital product's lifetime — continuous outcome tracking
+- Decision support — when a team needs evidence for an iterate / harden / sunset call
+
+## How to access
+
+Available through the MCC tooling stack today; planned for ANZ C. Configured per programme; LLM query layer accessible from the standard Dynatrace UI.
+
+## Output expectations
+
+- Quantitative signal on live usage — sessions, paths, drop-offs, error rates — only as good as the instrumentation in place
+- LLM-generated query answers are starting points, not final analyses; verify against the underlying data before acting
+- Pair instrumentation data with [DASH 2.0](/tools/dash) survey signal — quantitative behaviour plus qualitative feedback is stronger than either alone
+- Compare against the PRD's success criteria, not against raw counts in isolation

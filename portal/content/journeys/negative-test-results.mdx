@@ -1,0 +1,27 @@
+---
+title: "Our test results came back negative"
+scenario: "DASH says the success criteria weren't met. The instinct is to argue the test was wrong. The discipline is to figure out where the failure actually lies — framing, design, or testing — before adjusting anything."
+order: 4
+visibility: "public"
+steps:
+  - label: "Restate the success criteria the test was measuring against"
+    description: "Go back to the Research synthesis. Were the criteria measurable? Capability-focused? Did the test scenarios actually exercise them? A bad result against vague criteria is a finding about the criteria, not the artefact."
+  - label: "Diagnose where the failure lies"
+    description: "Three possibilities. Framing — the team was building the wrong thing. Design — the build doesn't yet match what was specified. Testing — the test didn't measure what mattered, or used the wrong sample. Each path leads somewhere different. Don't skip this step."
+  - label: "If testing was wrong — redesign the test"
+    description: "Wrong participants, wrong scenarios, prototype too thin to test, success criteria not measurable. Generate a new test plan with the fixes in place; don't change the artefact based on a bad measurement."
+    prompt: "test-plan-generator"
+  - label: "If design was wrong — iterate"
+    description: "Take the specific findings into the next Design pass. The Test ↔ Design loop is supposed to run at high cadence; one negative result isn't a crisis, it's expected. Iterate the prototype, then test again."
+    prompt: "prototype-from-prd"
+  - label: "If framing was wrong — re-engage Research"
+    description: "This is the outer-loop re-trigger. Costs the team weeks. Do it when test evidence exceeds the threshold for 'the problem framing itself has shifted' — not when one scenario underperforms."
+    prompt: "research-synthesiser"
+    tool: "clara"
+  - label: "Update the source artefact"
+    description: "Whatever the diagnosis, write what was learned into the PRD or operational scenario. The Pipeline accumulates knowledge through artefacts, not through tribal memory."
+---
+
+A negative test result is information, not a verdict. The first reflex — "the test was wrong" — sometimes turns out to be true, but skipping straight to that conclusion is how teams convince themselves their framing is fine when it isn't.
+
+The work below is diagnostic. Before you adjust anything, figure out which of the three possible failure locations the result points to. Each one leads to a different next step. Skipping the diagnosis costs more iterations than doing it.

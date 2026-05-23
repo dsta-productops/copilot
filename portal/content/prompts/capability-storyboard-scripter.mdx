@@ -1,0 +1,93 @@
+---
+title: "Capability-storyboard scripter"
+phase: "design"
+domain: "engineering"
+task: "Script a visual storyboard showing how a capability is exercised end-to-end"
+expectedOutput: "Markdown storyboard script: beat-by-beat panels with what to show, what's happening, and what changes from the prior beat."
+inputsFrom:
+  - operational-scenario-generator
+  - capability-spec-generator
+outputDestination: "A markdown storyboard script. Each panel is the spec for a render — feed the panel-level prompts to [Luma](/tools/luma-ai), [Nano Banana](/tools/nanobanana), or [Forma](/tools/autodesk-forma) for the actual visualisation."
+inputs:
+  - token: "OPERATIONAL_SCENARIO"
+    description: "Output of [operational-scenario generator](/prompts/operational-scenario-generator), or a written-up scenario."
+  - token: "CAPABILITY_SPEC"
+    description: "Output of [capability-spec generator](/prompts/capability-spec-generator). Anchors the storyboard to the actual capability requirements."
+    optional: true
+  - token: "STORYBOARD_LENGTH"
+    description: "How many panels you want. Default is 8 to 12 panels. Plain text."
+    examples:
+      - "8 panels"
+      - "12-panel narrative"
+  - token: "AUDIENCE"
+    description: "Who the storyboard is for. Plain text."
+    examples:
+      - "Operators reviewing the proposed capability for the first time"
+      - "Acquisition gate, going to leadership"
+      - "Engineering team scoping the build"
+promptBody: |
+  Based on the operational scenario, capability spec (if
+  available), length, and audience below, script a capability
+  storyboard.
+
+  A good storyboard script:
+  - Hooks the audience in the first panel (the operational
+    situation that demands the capability)
+  - Shows the capability in use, not the capability as a
+    diagram
+  - Includes at least one failure-recovery panel — the moment
+    where the capability earns its keep
+  - Builds tension before resolution — don't lead with the
+    outcome
+  - Ends with the changed state (what is different now that
+    this capability exists)
+  - Each panel describes WHAT TO SHOW (the visual subject) +
+    WHAT'S HAPPENING (the narration) — the rendering tool
+    picks up from there
+
+  Output as markdown:
+
+  ## Storyboard: [capability name]
+  **Audience:** [audience]
+  **Panels:** [N]
+
+  ### Panel 1
+  - **Show:** [the visual subject]
+  - **Happening:** [narration in 1-2 sentences]
+  - **Beat purpose:** [why this panel exists in the narrative]
+  - **Carry-over:** [what changes from the prior beat — "n/a" for panel 1]
+
+  (repeat per panel)
+
+  ### Continuity notes
+  - Things that should stay consistent across panels (operator's
+    equipment, time of day, environmental conditions)
+
+  ### Suggested rendering tool
+  - For each panel, recommend Luma / Nano Banana / Forma based
+    on what the panel needs to show (environmental sequence vs
+    hero shot vs spatial layout).
+
+  INPUTS:
+
+  Operational scenario:
+  {{OPERATIONAL_SCENARIO}}
+
+  Capability spec (if available):
+  {{CAPABILITY_SPEC}}
+
+  Storyboard length:
+  {{STORYBOARD_LENGTH}}
+
+  Audience:
+  {{AUDIENCE}}
+visibility: "public"
+---
+
+Use this prompt to script a visual storyboard of a capability in use — the panels, beats, and narration that turn an operational scenario into something operators can react to before any platform is acquired. The script feeds into a visualisation tool (Luma, Nano Banana, or Forma) for the actual rendering — this prompt produces the what-to-show, not the imagery.
+
+## Tips
+
+- The "carry-over" field is what turns a panel set into a narrative. Without it you get 12 disconnected hero shots.
+- The capability should be visible in use, not as a system diagram. If your storyboard could be replaced by a wiring diagram, the capability isn't being shown — it's being labelled.
+- Send the panel-level prompts through to [Luma](/tools/luma-ai), [Nano Banana](/tools/nanobanana), or [Forma](/tools/autodesk-forma) for the actual visualisation. The script is the spec — those tools are the renderer.

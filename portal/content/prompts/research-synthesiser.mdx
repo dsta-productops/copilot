@@ -1,0 +1,61 @@
+---
+title: Research synthesiser
+phase: research
+domain: shared
+tool: clara
+task: >-
+  turn interview transcripts and field observations into a single Research
+  synthesis page covering themes, friction, problem statement, and success
+  criteria
+expectedOutput: >-
+  A single markdown page with four sections — Themes, Friction points, Problem
+  statement, Success criteria — internally consistent because they're produced
+  in one pass.
+inputsFrom:
+  - interview-guide-generator
+  - prior-knowledge-summariser
+confluenceContext:
+  inputs:
+    - what: >-
+        Interview transcripts, field/exercise observation notes, operator
+        session notes
+      description: >-
+        Pages under folders/pages named *Interviews*, *Field notes*, *Sessions*,
+        *Exercises* (or with 'interview', 'transcript', 'session-notes',
+        'observation', 'field-notes', 'exercise' in titles). Restrict to this
+        programme's space.
+    - what: Prior-knowledge summary on the topic (optional)
+      description: >-
+        Search both `Knowledge Base/{{track}}/Prior-knowledge/*` and `Knowledge
+        Base/Programme-wide/Prior-knowledge/*`. Use it for grounding — the
+        synthesis should build on what's already known, not re-discover it.
+    - what: Interview guide used in the field (optional)
+      description: >-
+        Search both `Knowledge Base/{{track}}/Interview-guides/*` and `Knowledge
+        Base/Programme-wide/Interview-guides/*`. The guide's outcome question
+        tells you what the synthesis is meant to answer.
+  outputPathTemplate: 'Knowledge Base/{{track}}/Research-synthesis'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `research-synthesiser` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Outcome question** — what the research was trying to answer (one line — taken from the interview guide if one exists).
+- **Inputs** — CLARA will search the programme's Confluence space for interview transcripts, field/exercise observation notes, operator session notes; prior-knowledge summary on the topic (optional); interview guide used in the field (optional). You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Research-synthesis` inside your programme's Confluence space.
+
+## Tips
+
+- Themes are clusters, not summaries. If a "theme" is just one person's statement restated, it's not a theme — it's a quote.
+- The friction table earns its weight when it's sorted. A friction table without rank ordering is a list of complaints; with rank ordering, it's an action queue.
+- The problem statement is what separates synthesis from notes. Resist the urge to leave it open-ended — pick the framing the evidence best supports, and name the alternatives explicitly.
+- Success criteria written without measurability ("users should feel more confident") aren't success criteria — they're aspirations. Push for "X% of operators complete task Y in Z seconds without secondary confirmation" or similar.
+- This page is the single upstream for the rest of the Research phase. Downstream prompts (persona, journey, PRD, etc.) read sections of this page directly — that's why all four sections live together.

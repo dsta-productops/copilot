@@ -1,0 +1,50 @@
+---
+title: Service-blueprint drafter
+phase: research
+domain: digital
+tool: clara
+task: >-
+  draft a service blueprint linking user actions to front-stage and back-stage
+  support
+expectedOutput: >-
+  Markdown service blueprint with stages, customer actions, front-stage,
+  back-stage, and support processes.
+inputsFrom:
+  - journey-map-drafter
+  - persona-generator
+confluenceContext:
+  inputs:
+    - what: Journey map for the same scope
+      description: >-
+        Page under `Knowledge Base/{{track}}/Journeys/*`. Ask the user which
+        journey if there are multiple.
+    - what: Persona for the journey
+      description: 'Page under `Knowledge Base/{{track}}/Personas/*`.'
+    - what: 'System context — systems, tools, and back-stage teams involved'
+      description: >-
+        Pages under *Systems*, *Architecture*, *Operations*, *Teams* (or with
+        'system', 'architecture', 'team' in titles). If little is available, the
+        back-stage cells will be flagged as research gaps.
+  outputPathTemplate: 'Knowledge Base/{{track}}/Service blueprints/{{journey-scope}}'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `service-blueprint-drafter` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Journey** — page reference under `Knowledge Base/{{track}}/Journeys/*`.
+- **Inputs** — CLARA will search the programme's Confluence space for journey map for the same scope; persona for the journey; system context — systems, tools, and back-stage teams involved. You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Service blueprints/{{journey-scope}}` inside your programme's Confluence space.
+
+## Tips
+
+- Service blueprints expose the cost of design choices the journey map doesn't show. A "simpler" front-stage often means more back-stage work, not less.
+- The handoffs section is where the most surprising findings tend to surface. A back-stage handover that goes through three teams is a place where things break.
+- Pair the output with a [Napkin AI](/tools/napkin-ai) diagram so the layers are visually distinct.

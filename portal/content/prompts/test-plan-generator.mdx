@@ -1,0 +1,127 @@
+---
+title: "Test-plan generator"
+phase: "test"
+domain: "shared"
+task: "Generate a complete test plan with scenarios, participants, measurement, and analysis"
+expectedOutput: "Markdown test plan with objective, scenarios as a numbered section, participants, session structure, measurement, analysis, and validity risks."
+inputsFrom:
+  - prd-generator
+  - operational-scenario-generator
+  - research-synthesiser
+outputDestination: "A markdown test plan. Run sessions against it; capture results in DASH 2.0. Findings flow directly into the next Design iteration — there is no separate synthesis prompt for test data."
+inputs:
+  - token: "ARTEFACT"
+    description: "What's being tested. Paste the artefact in full or summarise."
+    examples:
+      - "Output of [PRD generator](/prompts/prd-generator) — for digital tests"
+      - "Output of [operational-scenario generator](/prompts/operational-scenario-generator) + [capability-spec generator](/prompts/capability-spec-generator) — for engineering tests"
+  - token: "SUCCESS_CRITERIA"
+    description: "The Success criteria section from the [research synthesiser](/prompts/research-synthesiser) output. Plain bullet list works."
+  - token: "TEST_TYPE"
+    description: "What kind of test this is. Plain text."
+    examples:
+      - "Usability test on interactive prototype, 5 operators"
+      - "Walk-through of virtual prototype with subject-matter experts"
+      - "Instrumented A/B on a deployed feature"
+      - "Capability rehearsal in scripted exercise"
+  - token: "CONSTRAINTS"
+    description: "Anything worth flagging: time budget, recruiting limits, environment, classification, secrecy."
+    optional: true
+promptBody: |
+  Based on the artefact, success criteria, and test type below,
+  draft a complete test plan including scenarios.
+
+  A good test plan:
+  - States the objective in one sentence — what question this test
+    is supposed to answer
+  - Derives 3–6 scenarios that, together, exercise the success
+    criteria. Each scenario has setup, steps, expected result, and
+    evidence to capture
+  - Names the participants: how many, what type, recruiting source,
+    exclusion criteria
+  - Structures the session: pre-task, scenarios, post-task, total
+    duration
+  - Names what gets measured: behavioural observations, metrics,
+    post-session questions, planned DASH 2.0 survey type (prototype
+    survey or system survey)
+  - Names how findings will translate into design adjustments
+  - Lists what could invalidate the test (and the mitigations)
+
+  Output as markdown:
+
+  ## Test plan: [name]
+
+  ### Objective
+  [One sentence — what question this test answers]
+
+  ### Success criteria tested
+  - [criterion] — covered by scenario(s): [refs]
+
+  ### Scenarios
+
+  #### Scenario 1: [name]
+  - **Setup:** [pre-conditions, system state, participant context]
+  - **Steps:** [numbered actions the participant takes]
+  - **Expected:** [what success looks like]
+  - **Evidence to capture:** [observations, metrics, artefacts]
+  - **Maps to:** [success criteria refs]
+
+  #### Scenario 2: [name]
+  [same structure]
+
+  [3–6 scenarios total, ordered from foundational to complex]
+
+  ### Participants
+  - **Number:** [N]
+  - **Profile:** [who they are — operators, end users, SMEs]
+  - **Recruiting source:** [how you'll find them]
+  - **Exclusions:** [who NOT to include and why]
+
+  ### Session structure
+  - **Pre-task (5–10 min):** [briefing, consent, warmup]
+  - **Scenarios:** [refs, in order, with time budget per scenario]
+  - **Post-task (10 min):** [debrief questions, planned DASH survey]
+  - **Total duration:** [N minutes]
+
+  ### Measurement
+  - **Behavioural observations:** [task completion, hesitation, errors,
+    recovery, where they look for help]
+  - **Metrics:** [if instrumented — what to log]
+  - **DASH 2.0 survey:** [prototype survey (post-iteration) OR system survey
+    (post-deployment) — name which and why]
+  - **Open questions:** [what to ask in the debrief]
+
+  ### Analysis
+  - [how raw observations turn into design adjustments]
+  - [who reviews the DASH output; how findings flow back into the next
+    design iteration]
+
+  ### Validity risks
+  - **[risk]:** [mitigation]
+  - **[risk]:** [mitigation]
+
+  INPUTS:
+
+  Artefact being tested:
+  {{ARTEFACT}}
+
+  Success criteria:
+  {{SUCCESS_CRITERIA}}
+
+  Test type:
+  {{TEST_TYPE}}
+
+  Constraints (if any):
+  {{CONSTRAINTS}}
+visibility: "public"
+---
+
+Use this prompt to generate a complete test plan — including scenarios — in one pass. The output is a single document a team can read, agree to, and run from.
+
+## Tips
+
+- The "Objective" sentence is the test of the test plan. If you can't write the objective in one sentence, the test isn't focused enough.
+- Scenarios should exercise success criteria, not just demo the artefact. A scenario where the participant cannot fail isn't a test.
+- "Validity risks" is the section teams under-invest in. Common ones: participants too close to the team, the prototype lacking content for the task, observers' presence changing behaviour, success criteria that depend on environmental factors the test can't reproduce. Name them up front.
+- For digital tests, the DASH 2.0 prototype survey runs immediately after the session. For engineering or deployed-system tests, the DASH system survey runs after sufficient exposure. The test plan should name which one and why.
+- Findings flow directly into the next design iteration — there is no separate synthesis prompt for test data. Captures live in DASH 2.0; design adjustments live in the next [prototype-from-prd](/prompts/prototype-from-prd) run or its engineering equivalent.

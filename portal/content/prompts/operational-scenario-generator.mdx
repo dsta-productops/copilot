@@ -1,0 +1,59 @@
+---
+title: Operational-scenario generator
+phase: research
+domain: engineering
+tool: clara
+task: draft an operational scenario from operator research and capability brief
+expectedOutput: >-
+  A full operational scenario covering operator, mission context, environment,
+  sequence, decisions, success/failure modes, and capability impact.
+inputsFrom:
+  - research-synthesiser
+confluenceContext:
+  inputs:
+    - what: >-
+        Operator research — interviews, field/exercise observations, workshop
+        outputs
+      description: >-
+        Pages under *Interviews*, *Exercises*, *Field notes*, *Workshops* (or
+        with 'interview', 'observation', 'exercise', 'field-notes', 'workshop'
+        in titles). Restrict to this programme's space.
+    - what: Capability brief or statement of operational need
+      description: >-
+        Pages under *Briefs*, *Capability*, *Mission* (or with
+        'capability-brief', 'operational-need', 'mission-statement' in titles).
+    - what: Doctrinal or procedural references the operators work from (optional)
+      description: >-
+        Pages under *Doctrine*, *Procedures*, *Standards* (or with 'doctrine',
+        'procedure', 'TTP' in titles).
+    - what: Themes (optional)
+      description: 'Page at Themes section of `Knowledge Base/{{track}}/Research-synthesis`.'
+    - what: Friction points (optional)
+      description: >-
+        Page at Friction-points section of `Knowledge
+        Base/{{track}}/Research-synthesis`. The failure-modes section draws on
+        this.
+  outputPathTemplate: 'Knowledge Base/{{track}}/Operational scenarios/{{scenario-title}}'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `operational-scenario-generator` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Scenario title** — short (e.g. "Tank crew night transit through contested terrain", "Fighter aircraft low-altitude intercept", "Frigate surface-contact classification at dusk").
+- **Inputs** — CLARA will search the programme's Confluence space for operator research — interviews, field/exercise observations, workshop outputs; capability brief or statement of operational need; doctrinal or procedural references the operators work from (optional); themes (optional); friction points (optional). You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Operational scenarios/{{scenario-title}}` inside your programme's Confluence space.
+
+## Tips
+
+- Validate the draft with at least one operator before using it in capability discussions. Their reaction is the real test.
+- Pay particular attention to the failure modes — that's where the design opportunity usually hides.
+- Pair the output with a visual: use [Nano Banana](/tools/nanobanana), [Luma](/tools/luma-ai), or [Forma](/tools/autodesk-forma) to make the scenario tangible.
+- The output feeds the [capability-spec generator](/prompts/capability-spec-generator) and [mission-thread mapper](/prompts/mission-thread-mapper).

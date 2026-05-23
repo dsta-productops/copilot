@@ -1,0 +1,66 @@
+---
+title: PRD generator
+phase: research
+domain: digital
+tool: clara
+task: draft a v0 PRD from research synthesis and prior framing
+expectedOutput: >-
+  Markdown PRD with 7 standard sections, with clarifying questions where input
+  is incomplete.
+inputsFrom:
+  - research-synthesiser
+  - persona-generator
+confluenceContext:
+  inputs:
+    - what: Problem statement and Success criteria
+      description: >-
+        Problem-statement and Success-criteria sections of `Knowledge
+        Base/{{track}}/Research-synthesis`. Falls back to `Knowledge
+        Base/Programme-wide/Research-synthesis` when no track-level version
+        exists.
+    - what: Persona for the PRD
+      description: >-
+        Page under `Knowledge Base/{{track}}/Personas/*` or `Knowledge
+        Base/Programme-wide/Personas/*`. Ask the user which persona if multiple.
+    - what: Themes from the Research synthesis (optional)
+      description: >-
+        Themes section of `Knowledge Base/{{track}}/Research-synthesis` or
+        `Knowledge Base/Programme-wide/Research-synthesis`.
+    - what: Original stakeholder ask
+      description: >-
+        Programme brief / charter / requesting note. Pages with 'brief', 'ask',
+        'charter' in titles.
+  outputPathTemplate: 'Knowledge Base/{{track}}/PRDs/{{prd-title}}'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `prd-generator` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **PRD title** — short (e.g. "Incident-report capture v1").
+- **Inputs** — CLARA will search the programme's Confluence space for problem statement and success criteria; persona for the prd; themes from the research synthesis (optional); original stakeholder ask. You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/PRDs/{{prd-title}}` inside your programme's Confluence space.
+
+## Tips
+
+- The clarifying questions in Step 3 are where this prompt earns its keep. Answer them honestly even if it means "I don't know yet."
+- Treat the v0 PRD as a starting position, never as the final document. Manual editing after generation is the norm, not the exception.
+
+## Before you circulate — self-review checklist
+
+Before sharing the PRD with stakeholders, walk through these checks. Most teams will edit the draft directly to fix gaps; a few questions surface things the draft can't fix on its own.
+
+- **Problem statement** is one paragraph, framed as a problem (not a solution in disguise). Has a clear "who has the problem."
+- **Success criteria** are measurable and capability-focused — what the capability or product has to be able to do, and to what threshold. No "users will feel more confident" non-criteria.
+- **Scope** is bounded both ways — what's in *and* what's out. "Out of scope" usually shortens later debates.
+- **User stories / jobs-to-be-done** describe outcomes, not features.
+- **Constraints and dependencies** name every external thing the work depends on. Re-read with "what would block this?" in mind.
+- **Open questions** are honest. The first draft is supposed to be wrong in interesting ways; the open questions are where you flag what you don't know.
+- **Persona references** link to specific persona pages — no implicit "the user".

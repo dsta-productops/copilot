@@ -1,0 +1,30 @@
+---
+title: "I have a finished feature — what now?"
+scenario: "A team has shipped something and wants to know if it's working. The instinct is to celebrate or to move on to the next thing. The Pipeline asks: did it actually achieve what it was supposed to?"
+order: 6
+visibility: "public"
+steps:
+  - label: "Restate the success criteria"
+    description: "Go back to the PRD or capability spec. What did the team say good would look like? Measurable and capability-focused — what the capability or product had to be able to do, and to what threshold. If the criteria were vague, that's a finding in itself."
+  - label: "Run a system survey in DASH 2.0"
+    description: "Structured feedback from real users or operators of the deployed system. If the team captured a baseline at the start of the project, compare against it — that's what turns 'the new system scored X' into 'the new system improved against the legacy by Y'."
+    tool: "dash"
+  - label: "Instrument with Dynatrace"
+    description: "Quantitative usage data on the live product — paths, drop-offs, error rates, anomalies. Pair with the DASH survey signal: behaviour data plus structured feedback is stronger than either alone."
+    tool: "dynatrace"
+  - label: "Run usability sessions (digital) or operator validation (engineering)"
+    description: "Quantitative evidence tells you what happened. Qualitative evidence tells you why. You need both."
+  - label: "Synthesise the findings"
+    description: "What changed because of this work? What didn't? What surprised the team?"
+  - label: "Decide: iterate, harden, or sunset"
+    description: "A finding without a decision attached is a finding that didn't change anything."
+  - label: "Update OKRs in DASH"
+    description: "When the results validate or invalidate a target, update OKRs in DASH so the next iteration measures against the right thing. This is how the Pipeline accumulates measurement discipline across iterations."
+    tool: "dash"
+  - label: "Update the PRD or scenario"
+    description: "Whatever the team learned, write it into the source artefact so the next team benefits. This is how the Pipeline accumulates knowledge."
+---
+
+Shipping is not the end of the iteration — Test is. A feature that has been delivered but not measured is not a feature that has been validated.
+
+This journey walks through how to close the loop on something already in production, gather honest evidence, and feed what you learn back into the next flywheel iteration.

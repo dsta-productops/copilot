@@ -1,0 +1,54 @@
+---
+title: Journey-map drafter
+phase: research
+domain: digital
+tool: clara
+task: draft a current-state journey map for a persona
+expectedOutput: >-
+  Markdown journey map with stages, actions, touchpoints, emotions, friction
+  points, and opportunities.
+inputsFrom:
+  - persona-generator
+  - research-synthesiser
+confluenceContext:
+  inputs:
+    - what: Persona for the journey
+      description: >-
+        Page under `Knowledge Base/{{track}}/Personas/*`. Ask the user which
+        persona if there are multiple.
+    - what: 'Interview transcripts, observation notes'
+      description: >-
+        Pages under *Interviews*, *Field notes*, *Sessions* (or with
+        'interview', 'observation' in titles).
+    - what: Themes (optional)
+      description: 'Page at Themes section of `Knowledge Base/{{track}}/Research-synthesis`.'
+    - what: Friction points (optional)
+      description: >-
+        Page at Friction-points section of `Knowledge
+        Base/{{track}}/Research-synthesis`. When present, the friction column
+        will be evidence-ranked.
+  outputPathTemplate: 'Knowledge Base/{{track}}/Journeys/{{journey-scope}}'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `journey-map-drafter` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Persona** — page reference, or the persona's name.
+- **Journey scope** — be specific: "submitting an incident report from the field", not "using the system".
+- **Inputs** — CLARA will search the programme's Confluence space for persona for the journey; interview transcripts, observation notes; themes (optional); friction points (optional). You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Journeys/{{journey-scope}}` inside your programme's Confluence space.
+
+## Tips
+
+- The current-state map is the goal. Future-state maps are a different artefact (and a different conversation).
+- "Moments of truth" — the steps where the persona forms a lasting impression — are usually 2 to 4 per journey. If you find more than 5, you're confusing moments-of-truth with friction points.
+- Pair the output with a visual via [Napkin AI](/tools/napkin-ai) — text-to-diagram works well for journey maps.
+- The output feeds the [service-blueprint drafter](/prompts/service-blueprint-drafter) for digital teams.

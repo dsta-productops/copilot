@@ -1,0 +1,39 @@
+---
+name: "PRIZM 4.0"
+phase: "design"
+domain: "digital"
+type: "bespoke"
+availability:
+  internet: early-access
+  ace: planned
+  mcc: planned
+  anzC: planned
+  anzS: planned
+accessLink: "https://prizm-design.github.io/prizm/"
+visibility: "public"
+prompts: []
+---
+
+## What it does
+
+DSTA's AI-ingestible design system. Provides components, tokens, and templates that LLMs can read and generate from directly. Two product zones — C3 (command-and-control, tactical) and Enterprise (back-office, professional) — share the same component primitives but apply different design tokens.
+
+The point of building PRIZM as AI-ingestible is that any team using Claude Code (or a similar tool) can generate UI that is automatically PRIZM-conformant — no separate handoff, no manual styling, no design-system drift.
+
+## When to use it
+
+- Mandatory for any digital UI work — internal tool, customer portal, marketing surface
+- Earliest possible in Design — set up the design system before prototyping, not after
+- For both prototyping (PRIZM components are copy-paste, fast to iterate) and production
+
+## How to access
+
+Source: [github.com/prizm-design/prizm](https://github.com/prizm-design/prizm). Distribution is copy-paste — components live in the PRIZM repo and are copied into consuming projects. No npm package.
+
+Read `PRIZM.md` and `llms.txt` at the root of that repo before using PRIZM with an AI tool — they brief the LLM on conventions, semantic tokens, and what NOT to do.
+
+## Output expectations
+
+- Generated code uses semantic Tailwind tokens (`bg-bg`, `text-fg`, `border-border`, `bg-accent`), never raw colour utilities
+- Components are composed from PRIZM primitives where possible
+- No external URL references (PRIZM is air-gap safe)

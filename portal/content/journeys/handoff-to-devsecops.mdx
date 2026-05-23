@@ -1,0 +1,23 @@
+---
+title: "I need to hand off to DevSecOps"
+scenario: "The interactive prototype has been through enough Test iterations to be validated. The developers in DevSecOps need to pick it up for production. The point of the Pipeline is that this isn't a 'throw it over the wall' moment — their technical assessment runs in parallel with the next Design pass."
+order: 3
+visibility: "public"
+steps:
+  - label: "Confirm the prototype lives in a repo DevSecOps can read"
+    description: "Parallel assessment depends on visibility. If developers can't see the code, they can't start. Check repo access; if the target environment is air-gapped, mirror the prototype to the right place."
+  - label: "Pass the PRD across as the spec contract"
+    description: "The PRD is what the prototype was built against. Developers need it to scope build, security, integration, and non-functional work — not to re-derive intent from the code."
+  - label: "Carry forward the success criteria"
+    description: "These are the targets developers will measure against post-deployment. Capability-focused and measurable — not 'looks polished' or 'feels right'."
+  - label: "Surface the integration concerns developers will hit"
+    description: "Authentication, data sources, deployment environment, scaling profile, classification, secrecy. Wherever the prototype mocked something, name what was mocked. Wherever the prototype made an environmental assumption, name it."
+  - label: "Set a parallel-assessment cadence"
+    description: "The developers' technical assessment runs while the product team iterates on the next Design pass. Agree a weekly sync at minimum — surface blockers from both sides before they become integration shocks."
+  - label: "Name what stays open"
+    description: "List the user flows, content gaps, fidelity choices, and operational edge cases the prototype didn't settle. Developers need to know what's a design decision vs an implementation detail."
+---
+
+The Design phase emits PRIZM-conformant code that DevSecOps developers can pick up. The risk isn't quality of the code — it's the assumption that hand-off is a one-time event. It isn't. The developers' assessment runs in parallel with continued Design iteration; both sides keep moving.
+
+This journey is about setting that parallelism up correctly, not about packaging a finished artefact. If the team is treating hand-off as a milestone where Design stops and DevSecOps starts, the pipeline's parallelism advantage is being thrown away.

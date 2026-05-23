@@ -1,0 +1,60 @@
+---
+title: "Design"
+lede: "Translate validated needs into testable artefacts — interactive prototypes, virtual prototypes, capability storyboards, system diagrams anyone can react to."
+artefactChecklist:
+  - label: "Artefact is aligned to Research and developed enough to learn from"
+    description: "Digital teams: the interactive prototype reflects the latest PRD and is built out enough that users can walk a real path through it. Engineering teams: the capability storyboard, virtual prototype, or system diagram reflects the latest operational scenario and capability spec, and is rendered enough for operators to react to. The point is to surface insight from the next Test pass, not to demo polish."
+  - label: "Generated code is in DevSecOps' hands"
+    description: "Digital teams: the Claude Code output sits in a repo DevSecOps can read, so their technical assessment (security, build, integration, non-functional concerns) runs in parallel with the next Design iteration rather than after it."
+pitfalls:
+  - label: "Designing for the demo, not the user."
+    description: "A prototype that looks great in the showcase but breaks under real-task pressure has not been designed — it has been decorated."
+  - label: "Holding the code back from DevSecOps."
+    description: "Claude Code emits PRIZM-conformant code that DevSecOps can assess for security, build, and integration concerns in parallel with the next Design iteration. Keeping it inside the design team until the prototype is 'done' wastes the parallelism the pipeline is built for."
+stages:
+  - name: "Design"
+    intro: "Produce something concrete enough to react to, at the right fidelity for the question being asked. Digital teams and engineering teams work in parallel — pick your tab."
+    parallel: true
+    artefacts:
+      - name: "Build an interactive prototype"
+        description: "Clickable, reviewable, testable. The prototype is the reference code — Claude Code emits real, PRIZM-conformant code that DevSecOps can pick up in parallel."
+        domain: "digital"
+        promptSlugs:
+          - prototype-from-prd
+        toolSlugs:
+          - claude-code
+          - prizm
+      - name: "Draw a system diagram"
+        description: "Components, data flows, dependencies, interfaces."
+        domain: "engineering"
+        toolSlugs:
+          - napkin-ai
+      - name: "Render a virtual prototype"
+        description: "Fly-throughs, scenario walk-throughs, immersive visualisations."
+        domain: "engineering"
+        toolSlugs:
+          - luma-ai
+          - nanobanana
+          - autodesk-forma
+      - name: "Script a capability storyboard"
+        description: "Visual sequence of how the capability is exercised."
+        domain: "engineering"
+        promptSlugs:
+          - capability-storyboard-scripter
+        toolSlugs:
+          - luma-ai
+          - nanobanana
+          - autodesk-forma
+---
+
+## What this phase is for
+
+Design turns validated needs into testable artefacts — something concrete enough to react to, at the right fidelity for the question being asked. The goal isn't a final product; it's an artefact a team can put in front of users or operators now, in the next Test iteration.
+
+For digital teams, this means rapid prototyping with Claude Code + PRIZM — the prototype is itself the reference code, generated in the right design system, ready for DevSecOps to pick up in parallel. For engineering teams, it means virtual prototypes, capability storyboards, and system diagrams that operators can engage with before costly platform acquisition.
+
+## How Design relates to Research and Test
+
+Design works against the artefacts produced in the Research phase (PRD for digital; operational scenario + capability spec for engineering). It does not write to Confluence — outputs live in code repositories, hosted prototype links, design tools, and rendered scenario files.
+
+Design is one half of the inner loop. Each Design pass produces something to validate; Test exercises it; findings come back; Design iterates. The loop runs at high cadence and is where most of the iteration mileage in a programme is spent.

@@ -1,0 +1,48 @@
+---
+title: Mission-thread mapper
+phase: research
+domain: engineering
+tool: clara
+task: >-
+  map an end-to-end mission thread for the operational task a capability
+  supports
+expectedOutput: >-
+  Markdown mission thread: actors, systems, data flow, decision points,
+  dependencies, and failure modes across the full task.
+inputsFrom:
+  - operational-scenario-generator
+confluenceContext:
+  inputs:
+    - what: Operational scenario for this capability
+      description: >-
+        Page under `Knowledge Base/{{track}}/Operational scenarios/*`. Ask the
+        user which scenario.
+    - what: 'System context — systems, platforms, comms involved'
+      description: >-
+        Pages under *Systems*, *Architecture*, *Platforms*, *Communications* (or
+        with 'system', 'architecture', 'platform', 'comms' in titles). Optional
+        but useful.
+  outputPathTemplate: 'Knowledge Base/{{track}}/Mission threads/{{mission-task}}'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `mission-thread-mapper` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Operational scenario** — page reference under `Knowledge Base/{{track}}/Operational scenarios/*`.
+- **Mission task** — be specific: "detect, identify, and engage an inbound air contact from a frigate", or "neutralise a hostile armoured vehicle in urban terrain" — not "air defence" or "ground operations".
+- **Inputs** — CLARA will search the programme's Confluence space for operational scenario for this capability; system context — systems, platforms, comms involved. You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Mission threads/{{mission-task}}` inside your programme's Confluence space.
+
+## Tips
+
+- The hardest part is keeping the thread at the right grain. Too coarse and you miss decision points; too fine and you're documenting screens. Aim for 5 to 12 steps end-to-end.
+- The "failure mode + recovery" column is where capability investment usually pays off — the steps with the most expensive recovery paths are the ones most worth protecting.
+- Pair with a [Napkin AI](/tools/napkin-ai) diagram so the data flow is visible at a glance.

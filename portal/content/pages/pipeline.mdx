@@ -1,0 +1,46 @@
+---
+title: "What ProductOps is, and how it works"
+eyebrow: "Foundation"
+lede: "Every team building software or capability for DSTA already moves through three layers of operations — what to build, how to build it, and how to run intelligent systems. ProductOps governs the first."
+visibility: "public"
+---
+
+## Three layers of operations, working in concert
+
+DSTA's delivery ecosystem has three operations disciplines that govern different layers of the work:
+
+- **ProductOps** governs *what* gets built, *how* product decisions are made, and *whether* what is delivered achieves the intended outcomes.
+- **DevSecOps** governs *how* software is built, secured, and shipped.
+- **MLOps** governs *how* models are trained, evaluated, and deployed.
+
+ProductOps is the **upstream layer**. It decides what the other two operate on. Without it, DevSecOps becomes very good at shipping the wrong thing efficiently, and MLOps becomes very good at deploying models that don't change anyone's day.
+
+## Parallel, not sequential
+
+Traditionally, ProductOps locks down finished static designs and hands them off to DevSecOps to build against. This Pipeline is designed to operate the opposite way.
+
+Each iteration of the product flywheel produces **reference artefacts** — code, scenarios, visualisations — that DevSecOps can act on concurrently. The hand-off isn't a milestone; it's a continuous flow. This shortens the loop between design intent and production behaviour, and catches integration risk early instead of at the end.
+
+## Outer loop, inner loop
+
+The flywheel has three phases — Research, Design, Test — but they run at different cadences:
+
+- **Research is the outer loop.** Done thoroughly at the start of a programme or a track. Foundational — it sets what the team is trying to achieve. Re-engaged when the team learns something that calls the framing itself into question, not on every turn through Design and Test.
+- **Design ↔ Test is the inner loop.** High-frequency. Build something testable, run it past users or operators, capture the signal, iterate. This is where most of the iteration mileage in a programme is spent.
+
+Test findings normally feed the next Design pass. Occasionally they exceed the threshold for "the problem framing has shifted" — that's when the team re-engages Research. The flywheel still closes; the radii are just honest about how often each phase actually turns.
+
+## Four design principles
+
+The Pipeline is built on four principles. Every tool, prompt, and template in the portal traces back to at least one of these.
+
+1. **AI-native by design.** Every iteration leverages AI to reduce manual effort and surface insights that previously required specialist time. The Co-pilot itself is AI-native — see the AI-ready prompts on every page.
+2. **Dual-domain from the outset.** The Pipeline serves both digital programme teams and engineering programme teams. Shared infrastructure first; domain-specific tools only where the work genuinely diverges.
+3. **Accessible without specialist skills.** Natural-language interfaces. A developer or a programme manager should be able to use the tools without becoming a product professional first.
+4. **Build where it creates unique value; buy where industry has solved it.** Bespoke for DSTA-specific context; COTS where the problem is general.
+
+## Where to go next
+
+- Curious how the work flows? See [the product flywheel](/flywheel).
+- Looking for a specific tool? Browse the [tool catalogue](/tools).
+- Starting something new? Try a [guided journey](/journeys).

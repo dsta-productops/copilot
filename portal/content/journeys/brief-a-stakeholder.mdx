@@ -1,0 +1,26 @@
+---
+title: "I need to brief a new stakeholder"
+scenario: "Someone new is coming into the conversation — a senior leader, another team's lead, or a partner team. They need to come up to speed without reading every artefact the team has produced."
+order: 5
+visibility: "public"
+steps:
+  - label: "Pull the research synthesis"
+    description: "The one-page version: who the team is building for, what problem is being solved, what success looks like. Framing in plain language, not jargon."
+    prompt: "research-synthesiser"
+    tool: "clara"
+  - label: "Pull the current PRD or operational scenario"
+    description: "This is what the team is building, not what it's hoping to build. Show it as it stands today, not after the next planned revision."
+  - label: "Show the latest validated artefact"
+    description: "Interactive prototype for digital teams; storyboard or virtual prototype for engineering. Whatever the team has put in front of users or operators most recently — links, not screenshots."
+  - label: "Show the most recent test results"
+    description: "DASH survey data, observational findings, OKR status. Honest about what's working and what isn't — the briefing is more credible when it includes failures."
+    tool: "dash"
+  - label: "Name the two or three open questions"
+    description: "Where the team genuinely needs input. A briefing without open questions tells the new stakeholder there's nothing for them to contribute — make sure that's actually true before claiming it."
+  - label: "Send them a link bundle, not a deck"
+    description: "Slides go stale the moment they're sent. Links to live artefacts (synthesis page, PRD, prototype URL, DASH workspace) stay current as the project evolves. The stakeholder can return at any time and see the current state."
+---
+
+The temptation when briefing someone new is to build a deck that tells the story end-to-end. That deck takes a day to write, takes the team away from the work, and is out of date by the next iteration.
+
+The work below is about composing artefacts the team has already produced — linking, not re-authoring. The briefing is honest about open questions and ongoing failures; it's a snapshot of where the team is, not a pitch for where it's going.

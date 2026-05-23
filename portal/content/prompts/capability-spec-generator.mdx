@@ -1,0 +1,51 @@
+---
+title: Capability-spec generator
+phase: research
+domain: engineering
+tool: clara
+task: derive measurable capability requirements from an operational scenario
+expectedOutput: >-
+  Markdown capability spec with functional requirements, performance thresholds,
+  environmental constraints, and traceability back to the scenario.
+inputsFrom:
+  - operational-scenario-generator
+confluenceContext:
+  inputs:
+    - what: Operational scenario for this capability
+      description: >-
+        Page under `Knowledge Base/{{track}}/Operational scenarios/*`. Ask the
+        user which scenario if multiple.
+    - what: Capability brief or statement of operational need
+      description: >-
+        Pages under *Briefs*, *Capability*, *Mission* (or with
+        'capability-brief', 'operational-need', 'mission-statement' in titles).
+    - what: >-
+        Known constraints (optional) — regulatory, integration, schedule,
+        platform
+      description: >-
+        Pages under *Constraints*, *Compliance*, *Architecture* (or with
+        'constraints', 'regulatory', 'integration' in titles).
+  outputPathTemplate: 'Knowledge Base/{{track}}/Capability specs/{{capability-name}}'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `capability-spec-generator` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Operational scenario** — page reference under `Knowledge Base/{{track}}/Operational scenarios/*` to base the spec on.
+- **Capability name** — short (e.g. "Tank-crew alerting aid", "Fighter aircraft sensor-fusion module", "Frigate surface-contact classifier").
+- **Inputs** — CLARA will search the programme's Confluence space for operational scenario for this capability; capability brief or statement of operational need; known constraints (optional) — regulatory, integration, schedule, platform. You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Capability specs/{{capability-name}}` inside your programme's Confluence space.
+
+## Tips
+
+- The traceability column ("traces to scenario beat: X") is the part that protects the spec from drift. Requirements that can't be traced back to a specific scenario beat should be challenged.
+- Performance thresholds are where engineering programmes most often under-specify. "Fast enough" is not a requirement; "within 5 seconds, 95th percentile" is.
+- Pair with a [Napkin AI](/tools/napkin-ai) system diagram so the requirements have a structural picture to anchor against.

@@ -1,0 +1,67 @@
+---
+title: "Test"
+lede: "Run the artefact against real users or operators, capture feedback in DASH 2.0, feed the next Design iteration."
+artefactChecklist:
+  - label: "Test plan ties back to success criteria"
+    description: "Each test answers: did the thing we said would happen actually happen? The success criteria from the Research synthesis are the targets."
+  - label: "If a baseline exists, the test plan names it as the comparator"
+    description: "When the team captured DASH baseline data in Research against the existing or legacy system, the test plan should reference those numbers as the comparator — not absolute targets pulled from intuition."
+  - label: "Sample is representative"
+    description: "Five users from the wrong segment is worse than three from the right one. Confirm the participants match the persona or operator profile being tested."
+  - label: "Findings include at least one result that disconfirms a prior assumption"
+    description: "Record the assumption alongside the finding. If every result confirms what the team already believed, the test was scoped for confirmation, not learning."
+  - label: "Next-iteration adjustments are clear"
+    description: "The team knows what to change in the next Design pass — captured in DASH 2.0 and in the design conversation that follows."
+pitfalls:
+  - label: "Measuring what's easy, not what matters."
+    description: "Click counts are easy. Whether the user accomplished their goal is harder, and the right thing to measure."
+  - label: "Picking the wrong survey type."
+    description: "A system survey on a one-day prototype gives misleading numbers; a prototype survey on a deployed system misses the operational signal."
+  - label: "Testing too late to act on findings."
+    description: "If the next Design iteration has already started by the time you have evidence, the evidence cannot change anything."
+  - label: "Treating DASH output as the end."
+    description: "The measurements are the input to the next Design conversation, not a finishing line."
+stages:
+  - name: "Plan"
+    intro: "Decide what you're measuring and how. A plan that ties back to the success criteria from Research is the difference between learning and confirmation."
+    artefacts:
+      - name: "Generate the test plan"
+        description: "Single plan with scenarios, participants, measurement, and analysis — produced in one pass from the artefact being tested and the Research synthesis."
+        domain: "shared"
+        promptSlugs:
+          - test-plan-generator
+  - name: "Measure"
+    intro: "Gather feedback using DASH 2.0. The survey type changes with the artefact's maturity — a prototype survey runs immediately after a rapid-prototype session; a system survey runs after a deployed system has been used long enough to give real-world signal."
+    artefacts:
+      - name: "Run a prototype survey"
+        description: "Quick survey administered after users see a rapid prototype iteration. The fast measurement for the inner loop."
+        domain: "shared"
+        toolSlugs:
+          - dash
+      - name: "Run a system survey"
+        description: "Comprehensive feedback on a deployed system. Used when the artefact has been live long enough that real-world signal is available."
+        domain: "shared"
+        toolSlugs:
+          - dash
+          - dynatrace
+  - name: "Act"
+    intro: "Close the loop. When test results validate or invalidate a target, the team adjusts what gets measured in the next iteration."
+    artefacts:
+      - name: "Update OKRs"
+        description: "When test results validate or invalidate a target, update OKRs in DASH so the next iteration measures against the right thing."
+        domain: "shared"
+        toolSlugs:
+          - dash
+---
+
+## What this phase is for
+
+Test is where the work meets reality. The goal is to gather evidence about whether the artefact delivers the intended outcomes — and to feed that evidence into the next Design iteration quickly enough to act on it.
+
+For both digital and engineering teams, the measurement instrument is DASH 2.0. The survey type changes with the artefact's maturity — a prototype survey runs immediately after a rapid-prototype session; a system survey runs after a deployed system has been used long enough to give real-world signal. When test results conclusively validate or invalidate a target, the team updates OKRs in DASH.
+
+## How Test relates to Design and Research
+
+Test does not write to Confluence. Test findings live inside DASH 2.0, where measurements, survey responses, and OKR updates are captured and viewable. Design picks up directly from there for the next iteration — there is no separate findings-synthesis artefact, because test data at the scale these surveys produce doesn't need synthesis. It needs action.
+
+Test is the other half of the inner loop. Each Design pass produces something testable; Test exercises it; findings drive the next Design adjustment. Research is re-engaged only when test findings exceed the threshold for "the problem framing itself has shifted" — that's the outer-loop re-trigger.

@@ -1,0 +1,69 @@
+---
+name: "CLARA"
+phase: "research"
+domain: "shared"
+type: "bespoke"
+availability:
+  anzC: early-access
+  mcc: planned
+  anzS: planned
+learnMoreLink: "#"  # TODO replace with CLARA brand site URL when it exists
+visibility: "public"
+promptsHeading: "What CLARA can do"
+promptsLede: "Pick a task. CLARA handles the Confluence search, drafting, and filing — open any tile for the one-liner to paste."
+prompts:
+  - prior-knowledge-summariser
+  - interview-guide-generator
+  - research-synthesiser
+  - persona-generator
+  - journey-map-drafter
+  - service-blueprint-drafter
+  - mission-thread-mapper
+  - operational-scenario-generator
+  - capability-spec-generator
+  - prd-generator
+---
+
+## What it does
+
+An AI-enabled product intelligence tool for Research. CLARA reads your programme's Confluence space, drafts structured artefacts, and files them back into the Knowledge Base — so each team starts richer than the last.
+
+CLARA — **C**onfluence **L**earning & AI **R**esearch **A**ssistant — is **Research-only** and **Confluence-only**. Design and Test outputs do not write to Confluence; the Knowledge Base is the Research phase's destination.
+
+## How CLARA behaves
+
+She is **disciplined about evidence** — every finding she surfaces cites the source Confluence page that supports it. If the corpus is silent on something, she says so plainly rather than extrapolating.
+
+She is **cautious about fabrication** — when inputs are thin, she flags what's missing before drafting rather than producing something that looks complete but rests on guesses.
+
+She is **strict about filing** — she verifies every level of the target hierarchy exists before creating a page. If she can't create the full path, she stops and reports rather than silently filing somewhere else.
+
+She is **track-aware** — she always knows whether she's working at programme-wide or track-level scope, and her downstream prompts cascade automatically (reading track-level material first, falling back to programme-wide when no track-level version exists).
+
+<!-- PROMPTS SLOT -->
+
+## Where outputs land
+
+CLARA files every artefact under a top-level `Knowledge Base` page in the programme's Confluence space:
+
+```
+Knowledge Base /
+  Programme-wide /          cross-track artefacts
+    Personas (Programme-wide) /
+    PRDs (Programme-wide) /
+    ...
+  <your track> /            track-specific artefacts
+    Personas (<your track>) /
+    Journeys (<your track>) /
+    PRDs (<your track>) /
+    ...
+```
+
+*Track* is your programme's own organising slice — workstream, capability area, feature line, sub-system — whichever applies. Artefacts that span tracks file under `Programme-wide`.
+
+## Provisioning the Knowledge Base
+
+CLARA creates any missing parts of the hierarchy automatically on first use, so teams can start drafting without setup. Two optional invocations are recommended when you want clean structure upfront:
+
+- **New programme** — `use clara's setup-kb for [programme]`. CLARA walks through programme type and current track list, previews the full hierarchy, and creates it in one pass. Safe to re-run.
+- **New track on an existing programme** — `use clara's add-track [track] to [programme]`. Bolts one track's folders onto an already-provisioned KB without re-walking the full setup.

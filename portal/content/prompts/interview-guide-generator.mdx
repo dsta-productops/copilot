@@ -1,0 +1,45 @@
+---
+title: Interview-guide generator
+phase: research
+domain: shared
+tool: clara
+task: generate a field-ready interview guide that surfaces the data the team needs
+expectedOutput: >-
+  A structured interview guide with warmup, core, probe, and wrap-up sections —
+  each question annotated with what to listen for.
+inputsFrom:
+  - prior-knowledge-summariser
+confluenceContext:
+  inputs:
+    - what: Prior-knowledge summary on the topic (optional)
+      description: >-
+        Look in `Knowledge Base/{{track}}/Prior-knowledge/*` and `Knowledge
+        Base/Programme-wide/Prior-knowledge/*`. Use the prior-knowledge summary
+        to avoid asking questions the team already has answers to, and to
+        pre-load the LLM on context.
+  outputPathTemplate: 'Knowledge Base/{{track}}/Interview-guides/{{topic}}'
+visibility: public
+source: clara
+claraSourceSha: unreleased
+copyBlock: Use CLARA's `interview-guide-generator` for <programme name>.
+---
+
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Topic** — a short identifier for the interview topic (e.g. "operator decision-making under time pressure", "shift handover friction"). Shapes the questions.
+- **Interviewee** — role, seniority, and number of sessions planned.
+- **Outcome question** — what the research needs to answer. Be specific: "do operators trust the alert system enough to act on it without secondary confirmation?", not "how do operators feel about alerts".
+- **Inputs** — CLARA will search the programme's Confluence space for prior-knowledge summary on the topic (optional). You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Interview-guides/{{topic}}` inside your programme's Confluence space.
+
+## Tips
+
+- The "Listening for" annotation is the cheat code. It keeps the interviewer focused on signal instead of just collecting answers.
+- Resist the temptation to add more questions. A guide with 8 sharp questions beats a guide with 20 vague ones. The wrap-up "anything I should have asked" question covers what you missed.
+- Re-run this prompt for each interviewee role rather than building one giant guide that covers everyone. Different roles need different probes.
+- After running interviews, the transcripts feed into the [research synthesiser](/prompts/research-synthesiser).

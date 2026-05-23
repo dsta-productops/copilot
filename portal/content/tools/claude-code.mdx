@@ -1,0 +1,38 @@
+---
+name: "Claude Code"
+phase: "design"
+domain: "digital"
+type: "cots"
+availability:
+  internet: available
+  ace: planned
+  mcc: available
+  anzC: available
+  anzS: available
+accessLink: "https://claude.com/claude-code"
+visibility: "public"
+prompts:
+  - prototype-from-prd
+---
+
+## What it does
+
+Natural-language code generation in the terminal and IDE. Enables rapid prototyping of digital products without specialist development skills — a product owner or designer can describe what they want and Claude Code generates working code.
+
+Pairs especially powerfully with [PRIZM 4.0](/tools/prizm): Claude Code reads PRIZM's `PRIZM.md` and `llms.txt`, then generates code that is automatically PRIZM-conformant.
+
+## When to use it
+
+- Design phase for digital teams — rapid prototyping from a PRD
+- Iterative refinement during iterations
+- Production code generation when paired with design-system discipline
+
+## How to access
+
+Available at [claude.com/claude-code](https://claude.com/claude-code). Run in the terminal or in any IDE with an MCP-compatible extension.
+
+## Output expectations
+
+- Generated code respects the project's existing conventions (read `CLAUDE.md` files in the repo)
+- For PRIZM consumers: uses semantic tokens, copies components rather than inventing alternatives
+- Air-gap discipline preserved (no external URL references introduced)
