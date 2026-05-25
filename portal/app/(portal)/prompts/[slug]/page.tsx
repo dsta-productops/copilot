@@ -20,10 +20,13 @@ interface PromptInput {
   examples?: string[];
 }
 
+type PromptTool = "clara" | "claude-code" | "any-llm";
+
 interface PromptFrontmatter {
   title: string;
   phase: string;
   domain?: string;
+  tool?: PromptTool;
   task: string;
   expectedOutput?: string;
   inputsFrom?: string[];
@@ -46,6 +49,18 @@ const DOMAIN_LABELS: Record<string, string> = {
   digital: "Digital",
   engineering: "Engineering",
 };
+
+const TOOL_LABELS: Record<PromptTool, string> = {
+  clara: "CLARA",
+  "claude-code": "Claude Code",
+  "any-llm": "Any LLM",
+};
+
+function resolveTool(fm: PromptFrontmatter): PromptTool {
+  if (fm.tool) return fm.tool;
+  if (fm.copyBlock) return "clara";
+  return "any-llm";
+}
 
 export async function generateStaticParams() {
   const prompts = await listEntries<PromptFrontmatter>("prompts");
@@ -88,6 +103,7 @@ export default async function PromptPage({
     inputs,
     outputDestination,
   } = entry.frontmatter;
+  const tool = resolveTool(entry.frontmatter);
 
   // Resolve upstream prompts (this prompt's inputsFrom)
   const upstreamEntries = await Promise.all(
@@ -112,11 +128,12 @@ export default async function PromptPage({
           <PageHeader eyebrow="Prompts" title={title} lede={task} />
           <div className="mt-4 flex flex-wrap gap-2">
             <Badge variant="subtle">{PHASE_LABELS[phase] ?? phase}</Badge>
-            {domain && (
+            {domain && domain !== "shared" && (
               <Badge variant="subtle">
                 {DOMAIN_LABELS[domain] ?? domain}
               </Badge>
             )}
+            <Badge variant="outline">{TOOL_LABELS[tool]}</Badge>
           </div>
         </div>
 
@@ -127,7 +144,7 @@ export default async function PromptPage({
           </Text>
         )}
 
-        {copyBlock && (
+        {tool === "clara" && copyBlock && (
           <Card className="p-5">
             <Stack gap="3">
               <Stack gap="1">
@@ -146,7 +163,30 @@ export default async function PromptPage({
           </Card>
         )}
 
-        {promptBody && !copyBlock && (
+        {tool === "claude-code" && promptBody && (
+          <Card className="p-5">
+            <Stack gap="3">
+              <div className="flex items-start justify-between gap-4">
+                <Stack gap="1" className="min-w-0">
+                  <Text size="sm" variant="muted" weight="medium" className="uppercase tracking-wide">
+                    Run with Claude Code
+                  </Text>
+                  <Text size="sm" variant="muted">
+                    Open this prompt inside a Claude Code workspace with access to your prototype repo.
+                  </Text>
+                </Stack>
+                <div className="shrink-0">
+                  <CopyButton text={promptBody} label="Copy prompt" />
+                </div>
+              </div>
+              <pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded-md border border-border bg-bg-subtle p-4 font-mono text-sm text-fg">
+                {promptBody}
+              </pre>
+            </Stack>
+          </Card>
+        )}
+
+        {tool === "any-llm" && promptBody && (
           <Card className="p-5">
             <Stack gap="3">
               <div className="flex items-start justify-between gap-4">

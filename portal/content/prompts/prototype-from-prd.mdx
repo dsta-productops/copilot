@@ -21,13 +21,12 @@ inputs:
     examples:
       - "calm and information-dense"
       - "fast and keyboard-first"
-      - "matches the prior C2 console look"
 promptBody: |
   I want to scaffold a prototype that implements the PRD below.
 
   Stack:
   - Next.js + TypeScript + Tailwind v4
-  - PRIZM 4.0 Enterprise (read PRIZM.md and llms.txt at
+  - PRIZM Enterprise (read PRIZM.md and llms.txt at
     https://github.com/prizm-design/prizm before generating)
   - Semantic tokens only — never raw colour utilities
 
@@ -59,4 +58,4 @@ Use this prompt with [Claude Code](/tools/claude-code) to scaffold a working pro
 - The "before writing any code, confirm" step is what prevents Claude Code from generating 500 lines of irrelevant scaffolding. Don't skip it.
 - The output is reference code, not production code. Treat it as the starting point for the team's iteration, and let DevSecOps act on it in parallel.
 - If Claude Code starts inventing PRIZM components that don't exist, stop and tell it to check `lib/components-registry.ts` in the PRIZM repo before generating.
-- The scaffolded prototype is the input for the [test-plan generator](/prompts/test-plan-generator) — close the loop with usability sessions and DASH 2.0 surveys.
+- The scaffolded prototype is the thing the next Test phase puts in front of users — pair it with the [test-plan generator](/prompts/test-plan-generator), which reads the PRD to draft the plan, then close the loop with usability sessions and DASH surveys.

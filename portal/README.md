@@ -5,7 +5,7 @@ Wayfinder, tool catalogue, and AI-ready guidance for DSTA's ProductOps pipeline.
 ## What's in here
 
 - **Next.js 16** (App Router) + TypeScript + Tailwind v4
-- **PRIZM 4.0 Enterprise Light** for visual identity (copy-paste components)
+- **PRIZM Enterprise Light** for visual identity (copy-paste components)
 - **Keystatic** CMS for content authoring (`/keystatic`)
 - **AI helper** via provider-agnostic OpenAI-compatible client (Groq default, swappable for on-prem)
 - **`/llms.txt`** + **`/llms-full.txt`** as first-class LLM-consumable surfaces

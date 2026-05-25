@@ -28,7 +28,7 @@ const phases = [
     icon: FlaskConical,
     title: "Test",
     blurb:
-      "Run the artefact against real users or operators, capture the feedback in DASH 2.0, feed the next Design iteration.",
+      "Run the artefact against real users or operators, capture the feedback in DASH, feed the next Design iteration.",
   },
 ];
 

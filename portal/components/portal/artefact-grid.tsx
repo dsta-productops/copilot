@@ -42,9 +42,11 @@ export function ArtefactGrid({
               <Heading as="h3" size="md">
                 {numbered ? `${i + 1}. ${a.name}` : a.name}
               </Heading>
-              <Badge variant="outline" className="shrink-0">
-                {DOMAIN_LABEL[a.domain]}
-              </Badge>
+              {a.domain !== "shared" && (
+                <Badge variant="outline" className="shrink-0">
+                  {DOMAIN_LABEL[a.domain]}
+                </Badge>
+              )}
             </div>
             <Text size="sm" variant="muted">
               {a.description}

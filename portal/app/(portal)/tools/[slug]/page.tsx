@@ -19,6 +19,7 @@ interface ToolFrontmatter {
   name: string;
   lede?: string;
   phase: string;
+  additionalPhases?: string[];
   domain: string;
   type: string;
   availability?: AvailabilityMap;
@@ -34,6 +35,7 @@ interface ToolFrontmatter {
 interface PromptFrontmatter {
   title: string;
   task: string;
+  phase?: string;
   domain?: "shared" | "digital" | "engineering";
   copyBlock?: string;
   visibility: string;
@@ -41,10 +43,10 @@ interface PromptFrontmatter {
 
 const PROMPTS_SLOT_MARKER = "<!-- PROMPTS SLOT -->";
 
-const PROMPT_DOMAIN_LABELS: Record<string, string> = {
-  shared: "Shared",
-  digital: "Digital",
-  engineering: "Engineering",
+const PROMPT_PHASE_LABELS: Record<string, string> = {
+  research: "Research",
+  design: "Design",
+  test: "Test",
 };
 
 const PHASE_LABELS: Record<string, string> = {
@@ -94,6 +96,7 @@ export default async function ToolPage({
     name,
     lede,
     phase,
+    additionalPhases,
     domain,
     type,
     availability,
@@ -110,20 +113,9 @@ export default async function ToolPage({
   const linkedPrompts = await Promise.all(
     (promptSlugs ?? []).map((s) => readEntry<PromptFrontmatter>("prompts", s)),
   );
-  const PROMPT_DOMAIN_ORDER: Record<string, number> = {
-    shared: 0,
-    digital: 1,
-    engineering: 2,
-  };
-  const resolvedPrompts = linkedPrompts
-    .filter(
-      (p): p is NonNullable<typeof p> => p !== null && isPublic(p.frontmatter),
-    )
-    .sort((a, b) => {
-      const da = PROMPT_DOMAIN_ORDER[a.frontmatter.domain ?? ""] ?? 99;
-      const db = PROMPT_DOMAIN_ORDER[b.frontmatter.domain ?? ""] ?? 99;
-      return da - db;
-    });
+  const resolvedPrompts = linkedPrompts.filter(
+    (p): p is NonNullable<typeof p> => p !== null && isPublic(p.frontmatter),
+  );
 
   // Split body around the prompts marker. If present, render prompts mid-page
   // between bodyTop and bodyBottom; otherwise fall back to rendering them
@@ -141,9 +133,16 @@ export default async function ToolPage({
             <Badge variant="subtle">
               {PHASE_LABELS[phase] ?? phase}
             </Badge>
-            <Badge variant="subtle">
-              {DOMAIN_LABELS[domain] ?? domain}
-            </Badge>
+            {(additionalPhases ?? []).map((p) => (
+              <Badge key={p} variant="subtle">
+                {PHASE_LABELS[p] ?? p}
+              </Badge>
+            ))}
+            {domain !== "shared" && (
+              <Badge variant="subtle">
+                {DOMAIN_LABELS[domain] ?? domain}
+              </Badge>
+            )}
             <Badge variant="outline">
               {TYPE_LABELS[type] ?? type}
             </Badge>
@@ -217,10 +216,10 @@ export default async function ToolPage({
                     >
                       <Card className="h-full p-4 transition-colors hover:border-border-strong">
                         <Stack gap="3" className="h-full">
-                          {prompt.frontmatter.domain && (
+                          {prompt.frontmatter.phase && (
                             <Badge variant="subtle" className="self-start">
-                              {PROMPT_DOMAIN_LABELS[prompt.frontmatter.domain] ??
-                                prompt.frontmatter.domain}
+                              {PROMPT_PHASE_LABELS[prompt.frontmatter.phase] ??
+                                prompt.frontmatter.phase}
                             </Badge>
                           )}
                           <code className="font-mono text-xs leading-snug text-fg">

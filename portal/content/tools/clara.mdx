@@ -1,6 +1,9 @@
 ---
 name: "CLARA"
 phase: "research"
+additionalPhases:
+  - design
+  - test
 domain: "shared"
 type: "bespoke"
 availability:
@@ -18,17 +21,19 @@ prompts:
   - persona-generator
   - journey-map-drafter
   - service-blueprint-drafter
-  - mission-thread-mapper
   - operational-scenario-generator
   - capability-spec-generator
+  - mission-thread-mapper
   - prd-generator
+  - capability-storyboard-scripter
+  - test-plan-generator
 ---
 
 ## What it does
 
-An AI-enabled product intelligence tool for Research. CLARA reads your programme's Confluence space, drafts structured artefacts, and files them back into the Knowledge Base — so each team starts richer than the last.
+An AI-enabled product intelligence tool that produces research artefacts across the Research, Design, and Test phases of the ProductOps pipeline. CLARA reads your programme's Confluence space, drafts structured artefacts, and files them back into the Knowledge Base — so each team starts richer than the last.
 
-CLARA — **C**onfluence **L**earning & AI **R**esearch **A**ssistant — is **Research-only** and **Confluence-only**. Design and Test outputs do not write to Confluence; the Knowledge Base is the Research phase's destination.
+CLARA — **C**onfluence **L**earning & AI **R**esearch **A**ssistant — is **Confluence-only**: she owns the research artefacts that live in the Knowledge Base across Research, Design, and Test (personas, journeys, PRDs, capability storyboards, test plans, and the rest). Prototype scaffolding still goes through Claude Code, not CLARA.
 
 ## How CLARA behaves
 

@@ -19,6 +19,7 @@ export const metadata = {
 interface ToolFrontmatter {
   name: string;
   phase: string;
+  additionalPhases?: string[];
   domain: string;
   type: string;
   availability?: AvailabilityMap;
@@ -69,10 +70,12 @@ function ToolGrid({ tools }: { tools: ToolEntry[] }) {
                 )}
               </div>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="subtle">
-                  {DOMAIN_LABELS[tool.frontmatter.domain] ??
-                    tool.frontmatter.domain}
-                </Badge>
+                {tool.frontmatter.domain !== "shared" && (
+                  <Badge variant="subtle">
+                    {DOMAIN_LABELS[tool.frontmatter.domain] ??
+                      tool.frontmatter.domain}
+                  </Badge>
+                )}
                 <Badge variant="outline">
                   {TYPE_LABELS[tool.frontmatter.type] ??
                     tool.frontmatter.type}
@@ -96,7 +99,11 @@ export default async function ToolsPage() {
 
   const grouped = PHASE_ORDER.reduce(
     (acc, phase) => {
-      acc[phase] = publicTools.filter((t) => t.frontmatter.phase === phase);
+      acc[phase] = publicTools.filter(
+        (t) =>
+          t.frontmatter.phase === phase ||
+          (t.frontmatter.additionalPhases ?? []).includes(phase),
+      );
       return acc;
     },
     {} as Record<string, typeof publicTools>,

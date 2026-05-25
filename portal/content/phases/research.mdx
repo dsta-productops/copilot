@@ -29,7 +29,7 @@ stages:
         promptSlugs:
           - prior-knowledge-summariser
       - name: "Baseline the current state"
-        description: "Run a DASH 2.0 baseline survey with users of the existing, legacy, or competitor system. The numbers captured here become the comparator the new system's Test results will be measured against — without them, future success criteria stay aspirational rather than verifiable."
+        description: "Run a DASH baseline survey with users of the existing, legacy, or competitor system. The numbers captured here become the comparator the new system's Test results will be measured against — without them, future success criteria stay aspirational rather than verifiable."
         domain: "shared"
         toolSlugs:
           - dash
@@ -47,8 +47,7 @@ stages:
         promptSlugs:
           - research-synthesiser
   - name: "Artefact production"
-    intro: "Compose the synthesis into the durable artefacts that pass into Design. Order within this stage doesn't matter — produce whichever apply to your team. Digital teams and engineering teams work in parallel under their respective tabs."
-    parallel: true
+    intro: "Compose the synthesis into the durable artefacts that pass into Design. Each domain has its own chain — start with the foundational artefact and let the downstream ones follow. The digital and engineering chains run independently. Within digital, the PRD only needs the persona, so it can run alongside the journey-map → service-blueprint branch. Within engineering, the capability spec and mission thread both branch off the operational scenario and can run in parallel."
     artefacts:
       - name: "Draft a persona"
         description: "Composite user archetype grounded in the research synthesis."

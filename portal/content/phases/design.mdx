@@ -13,8 +13,7 @@ pitfalls:
     description: "Claude Code emits PRIZM-conformant code that DevSecOps can assess for security, build, and integration concerns in parallel with the next Design iteration. Keeping it inside the design team until the prototype is 'done' wastes the parallelism the pipeline is built for."
 stages:
   - name: "Design"
-    intro: "Produce something concrete enough to react to, at the right fidelity for the question being asked. Digital teams and engineering teams work in parallel — pick your tab."
-    parallel: true
+    intro: "Produce something concrete enough to react to, at the right fidelity for the question being asked. Digital teams build an interactive prototype. Engineering teams have two paths: a system diagram for architectural context, and a capability storyboard scripted in CLARA that is then handed to a renderer (Luma, NanoBanana, Forma) for a virtual prototype that brings the sequence to life."
     artefacts:
       - name: "Build an interactive prototype"
         description: "Clickable, reviewable, testable. The prototype is the reference code — Claude Code emits real, PRIZM-conformant code that DevSecOps can pick up in parallel."
@@ -25,22 +24,18 @@ stages:
           - claude-code
           - prizm
       - name: "Draw a system diagram"
-        description: "Components, data flows, dependencies, interfaces."
+        description: "Components, data flows, dependencies, interfaces. Provides architectural context independent of the storyboard → virtual-prototype chain."
         domain: "engineering"
         toolSlugs:
           - napkin-ai
-      - name: "Render a virtual prototype"
-        description: "Fly-throughs, scenario walk-throughs, immersive visualisations."
-        domain: "engineering"
-        toolSlugs:
-          - luma-ai
-          - nanobanana
-          - autodesk-forma
       - name: "Script a capability storyboard"
-        description: "Visual sequence of how the capability is exercised."
+        description: "Beat-by-beat Markdown script of how the capability is exercised end-to-end. Becomes the input for the virtual prototype renderer."
         domain: "engineering"
         promptSlugs:
           - capability-storyboard-scripter
+      - name: "Render a virtual prototype"
+        description: "Fly-throughs, scenario walk-throughs, immersive visualisations rendered from the capability storyboard script."
+        domain: "engineering"
         toolSlugs:
           - luma-ai
           - nanobanana

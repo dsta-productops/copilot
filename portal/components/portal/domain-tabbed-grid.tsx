@@ -34,10 +34,10 @@ export function DomainTabbedGrid({
           <TabsTrigger value="engineering">Engineering teams</TabsTrigger>
         </TabsList>
         <TabsContent value="digital">
-          <ArtefactGrid artefacts={digital} numbered={false} />
+          <ArtefactGrid artefacts={digital} numbered={numbered} />
         </TabsContent>
         <TabsContent value="engineering">
-          <ArtefactGrid artefacts={engineering} numbered={false} />
+          <ArtefactGrid artefacts={engineering} numbered={numbered} />
         </TabsContent>
       </Tabs>
     </Stack>

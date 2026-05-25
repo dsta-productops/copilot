@@ -14,12 +14,28 @@ export const metadata = {
   title: "Prompts · ProductOps Co-pilot",
 };
 
+type PromptTool = "clara" | "claude-code" | "any-llm";
+
 interface PromptFrontmatter {
   title: string;
   phase: string;
+  tool?: PromptTool;
   task: string;
   expectedOutput?: string;
+  copyBlock?: string;
   visibility: string;
+}
+
+const TOOL_LABELS: Record<PromptTool, string> = {
+  clara: "CLARA",
+  "claude-code": "Claude Code",
+  "any-llm": "Any LLM",
+};
+
+function resolveTool(fm: PromptFrontmatter): PromptTool {
+  if (fm.tool) return fm.tool;
+  if (fm.copyBlock) return "clara";
+  return "any-llm";
 }
 
 const PHASE_ORDER = ["research", "design", "test", "cross-phase"] as const;
@@ -30,13 +46,43 @@ const PHASE_LABELS: Record<string, string> = {
   "cross-phase": "Cross-phase",
 };
 
+// Order prompts by how they chain together. Earlier prompts produce outputs
+// that later prompts consume. Within a phase, ordering follows dependency flow:
+// research starts at prior-knowledge / interview-guide and ends at PRD, design
+// follows from PRD into prototype + storyboard, test consumes the design output.
+const CHAIN_ORDER: string[] = [
+  // Research
+  "prior-knowledge-summariser",
+  "interview-guide-generator",
+  "research-synthesiser",
+  "persona-generator",
+  "journey-map-drafter",
+  "service-blueprint-drafter",
+  "operational-scenario-generator",
+  "capability-spec-generator",
+  "mission-thread-mapper",
+  "prd-generator",
+  // Design
+  "capability-storyboard-scripter",
+  "prototype-from-prd",
+  // Test
+  "test-plan-generator",
+];
+
+function chainIndex(slug: string): number {
+  const i = CHAIN_ORDER.indexOf(slug);
+  return i === -1 ? CHAIN_ORDER.length : i;
+}
+
 export default async function PromptsPage() {
   const prompts = await listEntries<PromptFrontmatter>("prompts");
   const publicPrompts = prompts.filter((p) => isPublic(p.frontmatter));
 
   const grouped = PHASE_ORDER.reduce(
     (acc, phase) => {
-      acc[phase] = publicPrompts.filter((p) => p.frontmatter.phase === phase);
+      acc[phase] = publicPrompts
+        .filter((p) => p.frontmatter.phase === phase)
+        .sort((a, b) => chainIndex(a.slug) - chainIndex(b.slug));
       return acc;
     },
     {} as Record<string, typeof publicPrompts>,
@@ -50,7 +96,7 @@ export default async function PromptsPage() {
         <PageHeader
           eyebrow="Operations"
           title="Prompt library"
-          lede="Copy-and-paste prompts for every phase of the pipeline. Each prompt is designed to be pasted straight into an LLM — no context-building required."
+          lede="Copy-and-paste prompts for every phase of the pipeline. Each prompt is tagged with where it runs — CLARA for KB-grounded artefacts, Claude Code for prototype scaffolding."
         />
 
         {activePhases.map((phase, i) => (
@@ -73,9 +119,14 @@ export default async function PromptsPage() {
                     <Card className="p-5 transition-colors hover:border-border-strong">
                       <div className="flex items-start justify-between gap-4">
                         <Stack gap="1">
-                          <Heading as="h3" size="lg">
-                            {prompt.frontmatter.title}
-                          </Heading>
+                          <div className="flex items-center gap-2">
+                            <Heading as="h3" size="lg">
+                              {prompt.frontmatter.title}
+                            </Heading>
+                            <Badge variant="outline" className="text-xs">
+                              {TOOL_LABELS[resolveTool(prompt.frontmatter)]}
+                            </Badge>
+                          </div>
                           {prompt.frontmatter.task && (
                             <Text size="sm" variant="muted">
                               {prompt.frontmatter.task}

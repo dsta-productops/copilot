@@ -124,9 +124,18 @@ export default config({
         slug: fields.slug({ name: { label: "Slug" } }),
         name: fields.text({ label: "Name", validation: { length: { min: 1 } } }),
         phase: fields.select({
-          label: "Phase",
+          label: "Home phase",
           options: PHASE_OPTIONS,
           defaultValue: "research",
+          description:
+            "Primary phase the tool belongs to. Drives sort order on /tools and the primary badge.",
+        }),
+        additionalPhases: fields.multiselect({
+          label: "Also appears in",
+          options: PHASE_OPTIONS.filter((o) => o.value !== "cross-phase"),
+          description:
+            "Other phases the tool spans. Lists the tool under those phase buckets on /tools too. Leave empty for single-phase tools.",
+          defaultValue: [],
         }),
         domain: fields.select({
           label: "Domain",

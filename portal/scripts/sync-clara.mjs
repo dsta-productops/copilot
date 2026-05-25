@@ -9,8 +9,7 @@
 // Files in portal that carry `source: clara` but no longer exist in CLARA's
 // dist are deleted as stale. Portal-native prompts (no `source: clara`
 // frontmatter) are never touched — that's how Design/Test standalone prompts
-// like prototype-from-prd, capability-storyboard-scripter, and
-// test-plan-generator stay in the portal independently of CLARA.
+// like prototype-from-prd stay in the portal independently of CLARA.
 
 import { promises as fs } from 'node:fs';
 import path from 'node:path';

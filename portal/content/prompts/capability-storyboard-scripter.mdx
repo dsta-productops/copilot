@@ -1,93 +1,55 @@
 ---
-title: "Capability-storyboard scripter"
-phase: "design"
-domain: "engineering"
-task: "Script a visual storyboard showing how a capability is exercised end-to-end"
-expectedOutput: "Markdown storyboard script: beat-by-beat panels with what to show, what's happening, and what changes from the prior beat."
+title: Capability-storyboard scripter
+phase: design
+domain: engineering
+tool: clara
+task: script a visual storyboard showing how a capability is exercised end-to-end
+expectedOutput: >-
+  Markdown storyboard script: beat-by-beat panels with what to show, what's
+  happening, and what changes from the prior beat.
 inputsFrom:
   - operational-scenario-generator
   - capability-spec-generator
-outputDestination: "A markdown storyboard script. Each panel is the spec for a render — feed the panel-level prompts to [Luma](/tools/luma-ai), [Nano Banana](/tools/nanobanana), or [Forma](/tools/autodesk-forma) for the actual visualisation."
-inputs:
-  - token: "OPERATIONAL_SCENARIO"
-    description: "Output of [operational-scenario generator](/prompts/operational-scenario-generator), or a written-up scenario."
-  - token: "CAPABILITY_SPEC"
-    description: "Output of [capability-spec generator](/prompts/capability-spec-generator). Anchors the storyboard to the actual capability requirements."
-    optional: true
-  - token: "STORYBOARD_LENGTH"
-    description: "How many panels you want. Default is 8 to 12 panels. Plain text."
-    examples:
-      - "8 panels"
-      - "12-panel narrative"
-  - token: "AUDIENCE"
-    description: "Who the storyboard is for. Plain text."
-    examples:
-      - "Operators reviewing the proposed capability for the first time"
-      - "Acquisition gate, going to leadership"
-      - "Engineering team scoping the build"
-promptBody: |
-  Based on the operational scenario, capability spec (if
-  available), length, and audience below, script a capability
-  storyboard.
-
-  A good storyboard script:
-  - Hooks the audience in the first panel (the operational
-    situation that demands the capability)
-  - Shows the capability in use, not the capability as a
-    diagram
-  - Includes at least one failure-recovery panel — the moment
-    where the capability earns its keep
-  - Builds tension before resolution — don't lead with the
-    outcome
-  - Ends with the changed state (what is different now that
-    this capability exists)
-  - Each panel describes WHAT TO SHOW (the visual subject) +
-    WHAT'S HAPPENING (the narration) — the rendering tool
-    picks up from there
-
-  Output as markdown:
-
-  ## Storyboard: [capability name]
-  **Audience:** [audience]
-  **Panels:** [N]
-
-  ### Panel 1
-  - **Show:** [the visual subject]
-  - **Happening:** [narration in 1-2 sentences]
-  - **Beat purpose:** [why this panel exists in the narrative]
-  - **Carry-over:** [what changes from the prior beat — "n/a" for panel 1]
-
-  (repeat per panel)
-
-  ### Continuity notes
-  - Things that should stay consistent across panels (operator's
-    equipment, time of day, environmental conditions)
-
-  ### Suggested rendering tool
-  - For each panel, recommend Luma / Nano Banana / Forma based
-    on what the panel needs to show (environmental sequence vs
-    hero shot vs spatial layout).
-
-  INPUTS:
-
-  Operational scenario:
-  {{OPERATIONAL_SCENARIO}}
-
-  Capability spec (if available):
-  {{CAPABILITY_SPEC}}
-
-  Storyboard length:
-  {{STORYBOARD_LENGTH}}
-
-  Audience:
-  {{AUDIENCE}}
-visibility: "public"
+confluenceContext:
+  inputs:
+    - what: Operational scenario this storyboard depicts
+      description: >-
+        Page under `Knowledge Base/{{track}}/Operational-scenarios/*`. Falls
+        back to `Knowledge Base/Programme-wide/Operational-scenarios/*` when no
+        track-level version exists. Ask the user which scenario if multiple.
+    - what: Capability spec for the capability being shown (optional)
+      description: >-
+        Page under `Knowledge Base/{{track}}/Capability-specs/*` or `Knowledge
+        Base/Programme-wide/Capability-specs/*`. Anchors the storyboard to the
+        actual requirements.
+    - what: Persona depicted in the storyboard (optional)
+      description: >-
+        Page under `Knowledge Base/{{track}}/Personas/*` or `Knowledge
+        Base/Programme-wide/Personas/*`. The operator whose actions the
+        storyboard shows — anchors the protagonist's vocabulary, context, and
+        constraints.
+  outputPathTemplate: 'Knowledge Base/{{track}}/Capability-storyboards/{{storyboard-title}}'
+visibility: public
+source: clara
+claraSourceSha: 875f6d44d91f059d9155e9f8f41ca60be613a3be
+copyBlock: Use CLARA's `capability-storyboard-scripter` for <programme name>.
 ---
 
-Use this prompt to script a visual storyboard of a capability in use — the panels, beats, and narration that turn an operational scenario into something operators can react to before any platform is acquired. The script feeds into a visualisation tool (Luma, Nano Banana, or Forma) for the actual rendering — this prompt produces the what-to-show, not the imagery.
+## What CLARA will ask you for
+
+- **Programme name** — your programme's name (e.g. SKYPROTECT).
+- **Track** — the slice of the programme this artefact belongs to (workstream, capability area, feature line, etc.), or `Programme-wide` if it spans tracks.
+- **Storyboard title** — short (e.g. "Tank-crew alerting under degraded comms").
+- **Length** — number of panels. Typically 8–12; shorter (5–6) for a quick brief or longer (15+) for a full narrative.
+- **Audience** — who the storyboard is for. Examples: operators reviewing the capability for the first time, or the engineering team scoping the build.
+- **Inputs** — CLARA will search the programme's Confluence space for operational scenario this storyboard depicts; capability spec for the capability being shown (optional); persona depicted in the storyboard (optional). You can also paste fresh material if it's not in Confluence yet.
+
+## Where the output lands
+
+`Knowledge Base/{{track}}/Capability-storyboards/{{storyboard-title}}` inside your programme's Confluence space.
 
 ## Tips
 
-- The "carry-over" field is what turns a panel set into a narrative. Without it you get 12 disconnected hero shots.
-- The capability should be visible in use, not as a system diagram. If your storyboard could be replaced by a wiring diagram, the capability isn't being shown — it's being labelled.
-- Send the panel-level prompts through to [Luma](/tools/luma-ai), [Nano Banana](/tools/nanobanana), or [Forma](/tools/autodesk-forma) for the actual visualisation. The script is the spec — those tools are the renderer.
+- When you review CLARA's panels, check the carry-over field on each. Without it you get a set of disconnected hero shots, not a narrative.
+- If CLARA's panels read like a system diagram, push back — the capability should be visible in use.
+- CLARA's panel-level prompts are the spec for the visualisation tool, not the visualisation itself. Send them through to Luma / Nano Banana / Forma for the actual rendering.
