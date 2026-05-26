@@ -5,12 +5,8 @@ import matter from "gray-matter";
 /**
  * Filesystem-backed content reader.
  *
- * Reads MDX files written by Keystatic into `content/<collection>/<slug>.mdx`.
- * Parses YAML frontmatter and returns the markdown body.
- *
- * Same files are editable in Keystatic admin (`/keystatic`) — the CMS and
- * filesystem are a single source of truth. This reader exists so server
- * components can render content without going through the Keystatic API.
+ * Reads MDX files from `content/<collection>/<slug>.mdx`, parses YAML
+ * frontmatter, and returns the markdown body for server components.
  */
 
 export type Collection =
